@@ -62,7 +62,6 @@ router.get("/applicants", async (req, res) => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Applications");
 
-    // Define columns
     worksheet.columns = [
       { header: "Post", key: "post", width: 50 },
       { header: "Surname", key: "surnameNow", width: 50 },
@@ -71,35 +70,36 @@ router.get("/applicants", async (req, res) => {
       { header: "Age", key: "age", width: 50 },
       { header: "Gender", key: "gender", width: 50 },
       { header: "Religion", key: "religion", width: 50 },
-      { header: "MaritalStatus", key: "maritalStatus", width: 50 },
-      { header: "ResidentialAddress", key: "residentialAddress", width: 50 },
+      { header: "Marital Status", key: "maritalStatus", width: 50 },
+      { header: "Residential Address", key: "residentialAddress", width: 50 },
       { header: "Town", key: "town", width: 50 },
       { header: "Postal Address", key: "postalAddress", width: 50 },
       { header: "Telephone", key: "telephone", width: 50 },
       { header: "Email", key: "email", width: 50 },
       { header: "Citizenship", key: "citizenship", width: 50 },
       { header: "National ID", key: "idNumber", width: 50 },
-      { header: "Home District", key: " homeDistrict", width: 50 },
-      { header: "qualifications", key: "qualifications", width: 50 },
-      
-      { header: "attachment", key: "attachment", width: 50 },
-      
-
-      
+      { header: "Home District", key: "homeDistrict", width: 50 },
+      { header: "Qualifications", key: "qualifications", width: 80 },
+      { header: "Attachment", key: "attachment", width: 50 },
       { header: "Submitted At", key: "submittedAt", width: 25 }
     ];
 
-    // Add rows
     applications.forEach(app => {
+      const formattedQualifications = Array.isArray(app.qualifications)
+        ? app.qualifications.map(q => {
+            if (typeof q === 'object' && q !== null) {
+              return `${q.level || ''} from ${q.institution || ''} (${q.year || ''})`;
+            }
+            return String(q);
+          }).join("; ")
+        : JSON.stringify(app.qualifications);
+
       worksheet.addRow({
         ...app,
-        qualifications: Array.isArray(app.qualifications)
-          ? app.qualifications.join("; ")
-          : JSON.stringify(app.qualifications),
+        qualifications: formattedQualifications,
       });
     });
 
-    // Set headers and send file
     res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     res.setHeader("Content-Disposition", "attachment; filename=applications.xlsx");
 
@@ -110,6 +110,5 @@ router.get("/applicants", async (req, res) => {
     res.status(500).json({ error: "Failed to generate Excel file", detail: err.message });
   }
 });
-
 
 module.exports = router;

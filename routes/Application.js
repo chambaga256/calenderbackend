@@ -52,4 +52,47 @@ router.post("/", (req, res, next) => {
   });
 });
 
+
+const ExcelJS = require("exceljs");
+
+router.get("/export", async (req, res) => {
+  try {
+    const applications = await Application.find().lean();
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Applications");
+
+    // Define columns
+    worksheet.columns = [
+      { header: "Full Name", key: "fullName", width: 30 },
+      { header: "Email", key: "email", width: 30 },
+      { header: "Phone", key: "phone", width: 20 },
+      { header: "Qualifications", key: "qualifications", width: 50 },
+      { header: "CV URL", key: "cvUrl", width: 50 },
+      { header: "Submitted At", key: "createdAt", width: 25 }
+    ];
+
+    // Add rows
+    applications.forEach(app => {
+      worksheet.addRow({
+        ...app,
+        qualifications: Array.isArray(app.qualifications)
+          ? app.qualifications.join("; ")
+          : JSON.stringify(app.qualifications),
+      });
+    });
+
+    // Set headers and send file
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    res.setHeader("Content-Disposition", "attachment; filename=applications.xlsx");
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (err) {
+    console.error("Excel export error:", err);
+    res.status(500).json({ error: "Failed to generate Excel file", detail: err.message });
+  }
+});
+
+
 module.exports = router;

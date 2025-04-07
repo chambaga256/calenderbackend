@@ -77,7 +77,7 @@ router.get("/applicants", async (req, res) => {
       { header: "Postal Address", key: "postalAddress", width: 50 },
       { header: "Telephone", key: "telephone", width: 50 },
       { header: "Email", key: "email", width: 50 },
-      { header: "Citizenship", key: "citizenships", width: 50 },
+      { header: "Citizenship", key: "citizenship", width: 50 },
       { header: "National ID", key: "idNumber", width: 50 },
       { header: "Home District", key: " homeDistrict", width: 50 },
       { header: "qualifications", key: "qualifications", width: 50 },

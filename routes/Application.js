@@ -33,16 +33,16 @@ router.post("/", (req, res, next) => {
     try {
       const data = req.body;
       const qualifications = JSON.parse(data.qualifications);
-      const cvUrl = req.file.location;
+      const attachment = req.file.location;
 
       const application = new Application({
         ...data,
         qualifications,
-        cvUrl,
+        attachment,
       });
 
       application.save().then(() => {
-        res.status(201).json({ message: "Application saved", cvUrl });
+        res.status(201).json({ message: "Application saved", attachment});
       }).catch((saveErr) => {
         res.status(500).json({ error: "Failed to save to database", detail: saveErr.message });
       });

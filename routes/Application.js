@@ -55,7 +55,7 @@ router.post("/", (req, res, next) => {
 
 const ExcelJS = require("exceljs");
 
-router.get("/export", async (req, res) => {
+router.get("/applicants", async (req, res) => {
   try {
     const applications = await Application.find().lean();
 
@@ -86,11 +86,7 @@ router.get("/export", async (req, res) => {
       
 
       
-
-      
-
-      
-      { header: "Submitted At", key: "createdAt", width: 25 }
+      { header: "Submitted At", key: "submittedAt", width: 25 }
     ];
 
     // Add rows

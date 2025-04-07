@@ -64,11 +64,32 @@ router.get("/export", async (req, res) => {
 
     // Define columns
     worksheet.columns = [
-      { header: "Full Name", key: "fullName", width: 30 },
-      { header: "Email", key: "email", width: 30 },
-      { header: "Phone", key: "phone", width: 20 },
-      { header: "Qualifications", key: "qualifications", width: 50 },
-      { header: "CV URL", key: "cvUrl", width: 50 },
+      { header: "Post", key: "post", width: 50 },
+      { header: "Surname", key: "surnameNow", width: 50 },
+      { header: "First Name", key: "firstNames", width: 50 },
+      { header: "Date of Birth", key: "dob", width: 50 },
+      { header: "Age", key: "age", width: 50 },
+      { header: "Gender", key: "gender", width: 50 },
+      { header: "Religion", key: "religion", width: 50 },
+      { header: "MaritalStatus", key: "maritalStatus", width: 50 },
+      { header: "ResidentialAddress", key: "residentialAddress", width: 50 },
+      { header: "Town", key: "town", width: 50 },
+      { header: "Postal Address", key: "postalAddress", width: 50 },
+      { header: "Telephone", key: "telephone", width: 50 },
+      { header: "Email", key: "email", width: 50 },
+      { header: "Citizenship", key: "citizenships", width: 50 },
+      { header: "National ID", key: "idNumber", width: 50 },
+      { header: "Home District", key: " homeDistrict", width: 50 },
+      { header: "qualifications", key: "qualifications", width: 50 },
+      
+      { header: "attachment", key: "attachment", width: 50 },
+      
+
+      
+
+      
+
+      
       { header: "Submitted At", key: "createdAt", width: 25 }
     ];
 

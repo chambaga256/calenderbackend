@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const bookingRoutes = require("./routes/booking");
 const  regionalbookingRoutes = require("./routes/retionalbooking");
 const regionaltrainingRoutes = require("./routes/rationalTraing");
-const applicationRoutes =require("./routes/Application")
+// const applicationRoutes =require("./routes/Application")
 
 const app = express();
 const PORT = 5000;

@@ -28,7 +28,7 @@ mongoose
 app.use("/calenderbooking", bookingRoutes);
 app.use("/esg", regionalbookingRoutes);
 app.use("/regionaltraining", regionaltrainingRoutes);
-app.use("/api/application", applicationRoutes);
+// app.use("/api/application", applicationRoutes);
 
 // Start the server
 app.listen(PORT, () => {
